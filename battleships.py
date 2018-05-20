@@ -94,12 +94,14 @@ def play_game():
     input("Press Enter to continue")      
   # loop with printing board, turn, asking for input
   for turn in range(1,settings.shots + 1): 
-    os.system('cls' if os.name == 'nt' else 'clear')     
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print_board(board)     
     print("Turn", turn)
     print("Max turn ",settings.shots)
     print(' ')
-    print (ships_coordinates)
-    print (forbiden_coordinates)
+    if settings.debug == 1:
+      print ("Ship coords",ships_coordinates)
+      print ('\n Forbiden coords',forbiden_coordinates)
     guess_row = int(input("Guess Row: ")) - 1
     guess_col = int(input("Guess Col: ")) - 1
     player_shot = [guess_row,guess_col]
@@ -137,19 +139,28 @@ def play_game():
 
 #main menu
 def main_menu():
+  import re
   os.system('cls' if os.name == 'nt' else 'clear')
+  pattern = r"[1-5]$"
   print ("======= BATTLESHIPS =======")
   print ("\n" *4)
   print('1. Play Game \n2. Options \n3. High Scores \n4. Quit')
-  main_menu_choice = int(input('Choose: '))
-  if main_menu_choice == 1:
+  if sys.argv[1] == "-debug":
+    print('5. Debug Mode')
+  main_menu_choice = (input('Choose: '))
+  while re.match(pattern,main_menu_choice) == None:
+    main_menu_choice = (input('Choose: '))
+  if main_menu_choice == "1":
     play_game()
-  elif main_menu_choice == 2:  
+  elif main_menu_choice == "2":  
     options_menu()
-  elif main_menu_choice == 3:  
+  elif main_menu_choice == "3":  
     high_scores_menu()
-  elif main_menu_choice == 4:  
+  elif main_menu_choice == "4":  
     sys.exit(0)
+  elif main_menu_choice == "5":
+    settings.debug = 1
+    main_menu()
 
 #high scores menu
 def high_scores_menu():

@@ -4,7 +4,8 @@ Battleship game started from codecademy tutorial - with few additional features.
 Features :
 - adjustable amount of ships on board, board size, shots number
 - high scores  
-- debug mode (-debug parameter from command line)
+- debug mode (-debug parameter from command line)  
+
 Todo :  
 
 - 2 player mode 
